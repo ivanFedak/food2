@@ -19,6 +19,7 @@ const modal = () => {
     modal.classList.add('show');
     document.documentElement.style.overflow = 'hidden';
     clearInterval(modalTimer);
+    window.removeEventListener('scroll', openByScroll);
   }
 
   function closeModal(e) {
@@ -47,12 +48,17 @@ const modal = () => {
 
   btns.forEach(btn => {
     btn.addEventListener('click', openModal);
-  });
-  close.addEventListener('click', closeModal);
-  document.addEventListener('click', outSide);
-  document.addEventListener('keydown', closeEsc);
-  const modalTimer = setTimeout(openModal, 122000);
-  window.addEventListener('scroll', openByScroll);
+  }); //Open
+
+  close.addEventListener('click', closeModal); //Close
+
+  document.addEventListener('click', outSide); //Close
+
+  document.addEventListener('keydown', closeEsc); //Close
+
+  const modalTimer = setTimeout(openModal, 122000); //Open
+
+  window.addEventListener('scroll', openByScroll); //Open
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);

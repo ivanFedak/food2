@@ -9,6 +9,7 @@ const modal = ()=>{
         modal.classList.add('show');
         document.documentElement.style.overflow = 'hidden';
         clearInterval(modalTimer);
+        window.removeEventListener('scroll', openByScroll);
     }
     function closeModal(e) {
         modal.classList.remove('show');
@@ -31,15 +32,14 @@ const modal = ()=>{
         }
     }
 
-    btns.forEach(btn=>{btn.addEventListener('click',openModal);});
-    close.addEventListener('click',closeModal);
-    document.addEventListener('click', outSide);
-    document.addEventListener('keydown', closeEsc);
+    btns.forEach(btn=>{btn.addEventListener('click',openModal);}); //Open
+    close.addEventListener('click',closeModal); //Close
+    document.addEventListener('click', outSide); //Close
+    document.addEventListener('keydown', closeEsc); //Close
 
-    const modalTimer = setTimeout(openModal, 122000);
+    const modalTimer = setTimeout(openModal, 122000); //Open
 
-    window.addEventListener('scroll',openByScroll);
+    window.addEventListener('scroll',openByScroll); //Open
     
-
 };
 export default modal;
