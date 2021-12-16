@@ -1,8 +1,6 @@
 const modal = ()=>{
     const btns = document.querySelectorAll('[data-modal]');
     const modal = document.querySelector('.modal');
-    const close = modal.querySelector('[data-close]');
-
 
     function openModal() {
         modal.classList.remove('hide');
@@ -10,6 +8,14 @@ const modal = ()=>{
         document.documentElement.style.overflow = 'hidden';
         clearInterval(modalTimer);
         window.removeEventListener('scroll', openByScroll);
+    }
+
+    function closeModalByX(e) {
+        if(e.target.closest('[data-close]')){
+            modal.classList.remove('show');
+            modal.classList.add('hide');
+            document.documentElement.style.overflow = '';
+        }
     }
     function closeModal(e) {
         modal.classList.remove('show');
@@ -33,7 +39,7 @@ const modal = ()=>{
     }
 
     btns.forEach(btn=>{btn.addEventListener('click',openModal);}); //Open
-    close.addEventListener('click',closeModal); //Close
+    modal.addEventListener('click',closeModalByX); //Close
     document.addEventListener('click', outSide); //Close
     document.addEventListener('keydown', closeEsc); //Close
 

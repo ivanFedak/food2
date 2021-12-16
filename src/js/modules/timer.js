@@ -1,7 +1,7 @@
 const timer = ()=>{
 
 
-    const deadline = '2021-12-04';
+    const deadline = '2021-12-24';
 
     function getTimeRemaining(endtime) {
         const result = Date.parse(endtime) - new Date();
@@ -29,7 +29,7 @@ const timer = ()=>{
     }
 
     function setTimer(endtime, selector) {
-
+        const getTime = getTimeRemaining(endtime);
         const timerWrapper = document.querySelector(selector),
               days = timerWrapper.querySelector('#days'),
               hours = timerWrapper.querySelector('#hours'),
@@ -38,7 +38,12 @@ const timer = ()=>{
        
         const timeIntrval = setInterval(updateTimer, 1000);
 
-        updateTimer();
+        if(getTime.result < 0){
+            clearInterval(timeIntrval);
+        }else{
+            updateTimer();
+        }
+        
 
         function updateTimer() {
             const getTime = getTimeRemaining(endtime);
@@ -47,10 +52,6 @@ const timer = ()=>{
             hours.innerHTML = getZero(getTime.hours);
             minutes.innerHTML = getZero(getTime.minutes);
             seconds.innerHTML = getZero(getTime.seconds);
-
-            if(getTime.result <= 0){
-                clearInterval(timeIntrval);
-            }
         }
         
     }
