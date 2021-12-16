@@ -1,4 +1,5 @@
-    const project_folder = "dist";
+    // const project_folder = "dist";
+    const project_folder = "/Applications/MAMP/htdocs/food";
     const source_folder = "src";
 
 
@@ -10,6 +11,7 @@
             js: project_folder + "/js/",
             img: project_folder + "/img/",
             fonts: project_folder + "/fonts/",
+            php: project_folder + "/php/",
         },
         src:{
             html: [source_folder + "/*.html", "!"+source_folder + "/_*.html"], //all html files / ,  but no file that start with '_'
@@ -17,12 +19,14 @@
             js: source_folder + "/js/main.js",
             img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}", //img / all folder / any name . {format}
             fonts: source_folder + "/fonts/*.ttf",
+            php: source_folder + "/php/*",
         },
         watch:{
             html: source_folder + "/**/*.html", // all foler / any name.html
-            css: source_folder + "/sass/**/*",
+            css: source_folder + "/css/**/*",
             js: source_folder + "/js/**/*.js",
-            img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}"
+            img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+            php: source_folder + "/php/*",
         },
         clean: "./" + project_folder + "/" //clean folder every time when we start gulp
     }
@@ -125,6 +129,10 @@
 
         
     }
+    function php(params) {
+        return src(path.src.php)
+            .pipe(dest(path.build.php));
+    }
 
     function images(params) {
         return src(path.src.img)
@@ -190,13 +198,14 @@
         gulp.watch([path.watch.css],css)
         gulp.watch([path.watch.js],js)
         gulp.watch([path.watch.img],images)
+        gulp.watch([path.watch.php],php);
     }
 
     function clean(params) {
         return del(path.clean)
     }
     
-    const build = gulp.series(clean,gulp.parallel(html,js,css,images,fonts)) 
+    const build = gulp.series(clean,gulp.parallel(html,js,css,images,fonts,php)) 
     const watch = gulp.parallel(build,watchFiles,browserSync);
 
     
@@ -204,6 +213,7 @@
 
 
 
+exports.php = php;
 exports.fonts = fonts;
 exports.images = images;
 exports.js = js;
