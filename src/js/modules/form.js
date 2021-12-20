@@ -21,8 +21,7 @@ const form = ()=>{
 
     forms.forEach(form => {
         postData(form);
-    });
-
+    }); 
 
     function postData(form) {
         form.addEventListener('submit',function(e){
@@ -36,16 +35,22 @@ const form = ()=>{
             `; 
             form.insertAdjacentElement('afterend', statusMessage);
 
-            ///////
+            /////////Start
             const formData = new FormData(form);
 
-            fetch('./php/server.php',{
+            const obj = {};
+            formData.forEach(function(value,key) {
+                obj[key] = value;
+            });
+            const json = JSON.stringify(obj);
+
+
+            fetch('http://localhost:3000/requests',{
                 method: 'POST',
-                // headers: {
-                //     'Content-type': 'application/json',
-                // },
-                body: formData
-            }).then(data => data.text())
+                headers: {'Content-type': 'application/json',},
+                body: json
+            })
+            .then(data => data.text())
             .then(data =>{
                 console.log(data);
                 showThanksModal(messages.success);
@@ -55,7 +60,7 @@ const form = ()=>{
             }).finally(()=>{
                 form.reset(); 
             });
-            /////
+            ///// End
 
         });
     }
@@ -82,5 +87,9 @@ const form = ()=>{
             closeModal();
         }, 4000);
     }
+
+    // fetch('http://localhost:3000/menu')
+    //     .then(data => data.json())
+    //     .then(data => console.log(data));
 };
 export default form;

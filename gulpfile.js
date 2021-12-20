@@ -12,6 +12,7 @@
             img: project_folder + "/img/",
             fonts: project_folder + "/fonts/",
             php: project_folder + "/php/",
+            jsonss: project_folder + "/jsonss/",
         },
         src:{
             html: [source_folder + "/*.html", "!"+source_folder + "/_*.html"], //all html files / ,  but no file that start with '_'
@@ -20,6 +21,7 @@
             img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}", //img / all folder / any name . {format}
             fonts: source_folder + "/fonts/*.ttf",
             php: source_folder + "/php/*",
+            jsonss: source_folder + "/jsonss/*",
         },
         watch:{
             html: source_folder + "/**/*.html", // all foler / any name.html
@@ -27,6 +29,7 @@
             js: source_folder + "/js/**/*.js",
             img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
             php: source_folder + "/php/*",
+            jsonss: source_folder + "/jsonss/*",
         },
         clean: "./" + project_folder + "/" //clean folder every time when we start gulp
     }
@@ -133,6 +136,10 @@
         return src(path.src.php)
             .pipe(dest(path.build.php));
     }
+    function jsonss(params) {
+        return src(path.src.jsonss)
+            .pipe(dest(path.build.jsonss));
+    }
 
     function images(params) {
         return src(path.src.img)
@@ -199,13 +206,14 @@
         gulp.watch([path.watch.js],js)
         gulp.watch([path.watch.img],images)
         gulp.watch([path.watch.php],php);
+        gulp.watch([path.watch.jsonss],jsonss);
     }
 
     function clean(params) {
         return del(path.clean)
     }
     
-    const build = gulp.series(clean,gulp.parallel(html,js,css,images,fonts,php)) 
+    const build = gulp.series(clean,gulp.parallel(html,js,css,images,fonts,php,jsonss)) 
     const watch = gulp.parallel(build,watchFiles,browserSync);
 
     
@@ -213,6 +221,7 @@
 
 
 
+exports.jsonss = jsonss;
 exports.php = php;
 exports.fonts = fonts;
 exports.images = images;
