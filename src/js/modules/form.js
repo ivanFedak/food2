@@ -33,29 +33,33 @@ const form = ()=>{
             statusMessage.style.cssText = `
                 display: block;
                 margin: 0 auto; 
-            `;
+            `; 
             form.insertAdjacentElement('afterend', statusMessage);
 
-            const request = new XMLHttpRequest();
-            request.open('POST', './php/server.php');
-     
+            ///////
+            const formData = new FormData(form);
 
-            const formData = new FormData(form);//in inputs must be attribute - "name"
-            request.send(formData);
+            fetch('./php/server.php',{
+                method: 'POST',
+                // headers: {
+                //     'Content-type': 'application/json',
+                // },
+                body: formData
+            }).then(data => data.text())
+            .then(data =>{
+                console.log(data);
+                showThanksModal(messages.success);
+                statusMessage.remove();  
+            }).catch((e)=>{
+                showThanksModal(messages.fail);
+            }).finally(()=>{
+                form.reset(); 
+            });
+            /////
 
-            request.addEventListener('load',function(e){
-                if(request.status === 200){
-                    console.log(request.response);
-                    showThanksModal(messages.success);
-                    form.reset(); 
-                    statusMessage.remove();  
-                }else{
-                    showThanksModal(messages.fail);
-                }
-            }); 
         });
     }
-    
+
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');
         prevModalDialog.classList.add('hide');

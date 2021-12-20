@@ -33,6 +33,7 @@
     "gulp-webp": "^4.0.1",
     "gulp-webp-html": "^1.0.2",
     "gulp-webpcss": "^1.1.1",
+    "json-server": "^0.17.0",
     "sass": "^1.43.4",
     "webp-converter": "^2.2.3",
     "webpack": "^5.62.1",
