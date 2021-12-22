@@ -47,6 +47,7 @@ a {
 
 .container {
     max-width: 1200px;
+    padding: 0 15px;
     margin: 0 auto
 }
 
@@ -65,6 +66,7 @@ a {
 .header {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
     height: 150px;
     padding: 0 100px
@@ -73,7 +75,7 @@ a {
 .header__left-block {
     display: flex;
     justify-content: space-between;
-    min-width: 550px
+    flex-wrap: wrap;
 }
 
 .header__logo {
@@ -86,6 +88,7 @@ a {
 
 .header__links {
     display: flex;
+    flex-wrap: wrap;
     align-items: center
 }
 
@@ -175,7 +178,6 @@ a {
 
 .tabcontainer {
     display: flex;
-    width: 1130px;
     margin: 0 auto;
     box-shadow: 0 4px 30px rgba(0, 0, 0, .25)
 }
@@ -250,7 +252,6 @@ a {
 
 .offer .bgc_y {
     position: absolute;
-    width: 1109px;
     height: 780px;
     background: rgba(243, 255, 222, .45);
     z-index: -1;
@@ -348,7 +349,9 @@ a {
 .calculating {
     padding: 50px 0
 }
-
+.calculating .container{
+    background: rgba(146, 242, 255, .15);
+}
 .calculating .title {
     text-align: center
 }
@@ -356,8 +359,7 @@ a {
 .calculating__field {
     width: 100%;
     margin-top: 50px;
-    background: rgba(146, 242, 255, .15);
-    padding: 30px 0 40px 0
+    padding: 30px 15px 40px 15px
 }
 
 .calculating__subtitle {
@@ -385,6 +387,7 @@ a {
 .calculating__choose {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     margin-top: 30px;
     justify-content: center
 }
@@ -412,13 +415,11 @@ a {
 }
 
 .calculating__choose_medium {
-    width: 743px;
     justify-content: space-between;
     margin: 30px auto 0 auto
 }
 
 .calculating__choose_big {
-    width: 930px;
     justify-content: space-between;
     margin: 30px auto 0 auto
 }
@@ -428,14 +429,13 @@ a {
 }
 
 .calculating__divider {
-    width: 490px;
+    width: 100%;
     height: 1px;
     margin: 40px auto;
     background-color: rgba(0, 0, 0, .2)
 }
 
 .calculating__total {
-    width: 490px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -616,7 +616,8 @@ a {
     margin-top: 60px;
     padding-left: 95px;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
     align-items: center
 }
 
@@ -628,6 +629,26 @@ a {
     font-size: 16px;
     font-weight: 300;
     text-align: center
+}
+@media (max-width: 768px){
+    .promotion .container{
+        flex-direction: column;
+    }
+    .promotion__text {
+        width: 100%
+    }
+    .promotion__timer {
+        width: 100%
+    }
+    .promotion__timer .title {
+        text-align: center
+    }
+    .promotion .bgc_y{
+        width: 100%;
+    }
+    .order__form {
+        flex-direction: column;
+    }
 }
 
 .promotion__timer .timer__block span {

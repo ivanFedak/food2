@@ -62,7 +62,7 @@
             server:{
                 baseDir: "./" + project_folder + "/"
             },
-            port:3000,
+            port:4000,
             notify:false
         })
     }
