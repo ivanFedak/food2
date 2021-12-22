@@ -1,12 +1,4 @@
 const form = ()=>{
-    
-    const forms = document.querySelectorAll('form');
-    const modal = document.querySelector('.modal');
-    const messages = {
-        loading: './img/spinner.svg',
-        success: 'Мы с вами скоро свяжемся',
-        fail: 'Сервер пошёл ко дну'
-    };
 
     function openModal() {
         modal.classList.remove('hide');
@@ -18,12 +10,31 @@ const form = ()=>{
         modal.classList.add('hide');
         document.documentElement.style.overflow = '';
     }
+    
+    const forms = document.querySelectorAll('form');
+    const modal = document.querySelector('.modal');
+    const messages = {
+        loading: './img/spinner.svg',
+        success: 'Мы с вами скоро свяжемся',
+        fail: 'Сервер пошёл ко дну'
+    };
+
+
 
     forms.forEach(form => {
-        postData(form);
+        bindPostData(form);
     }); 
 
-    function postData(form) {
+    const postData = async (url,data) =>{
+         const resolve = await fetch(url, {
+                method: 'POST',
+                headers: {'Content-type': 'application/json',},
+                body: data
+         });
+         return resolve;
+    };
+ 
+    function bindPostData(form) {
         form.addEventListener('submit',function(e){
             e.preventDefault(); 
 
@@ -36,6 +47,7 @@ const form = ()=>{
             form.insertAdjacentElement('afterend', statusMessage);
 
             /////////Start
+
             const formData = new FormData(form);
 
             const obj = {};
@@ -44,13 +56,9 @@ const form = ()=>{
             });
             const json = JSON.stringify(obj);
 
-
-            fetch('http://localhost:3000/requests',{
-                method: 'POST',
-                headers: {'Content-type': 'application/json',},
-                body: json
-            })
-            .then(data => data.text())
+           
+            postData('http://localhost:3000/requests', json)
+            .then(data => data.json())
             .then(data =>{
                 console.log(data);
                 showThanksModal(messages.success);

@@ -15,8 +15,6 @@ const cards = ()=>{
         toUan(){
             this.price = this.price * this.transfer; 
         }
-
-
         renderItems(){
             const elem = document.createElement('div');
             if(this.classes.length > 0){//work with class
@@ -26,7 +24,7 @@ const cards = ()=>{
             }
             
             elem.innerHTML = `
-                <img src="img/tabs/${this.img}" alt="${this.alt}">
+                <img src="${this.img}" alt="${this.alt}">
                 <h3 class="menu__item-subtitle">${this.subtitle}</h3>
                 <div class="menu__item-descr">${this.descr}</div>
                 <div class="menu__item-divider"></div>
@@ -40,34 +38,24 @@ const cards = ()=>{
         }
     }
 
-    new Card(
-        'vegy.jpg',
-        'vegy', 
-        'Меню "Фитнес"', 
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        9,
-        '.menu__field .container',
-        'menu__item',
-    ).renderItems();
 
-    new Card(
-        'elite.jpg',
-        'elite', 
-        'Меню “Премиум”', 
-        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-        12,
-        '.menu__field .container',
-        'menu__item',
-    ).renderItems();
+    ///Get
 
-    new Card(
-        'post.jpg',
-        'post', 
-        'Меню "Постное"', 
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        7,
-        '.menu__field .container',
-        'menu__item', 
-    ).renderItems();
+    const getData = async (url) =>{
+        const res = await fetch(url);
+        if(!res.ok){
+            throw new Error('Error');
+        }
+        return await res.json();
+    };
+
+    getData('http://localhost:3000/menu')
+        .then((data)=>{
+            data.forEach(({img, altimg, title,descr,price})=>{
+                new Card(img,altimg,title,descr,price,'.menu__field .container', 'menu__item').renderItems();
+            });
+        });
+
+    
 };
 export default cards;
