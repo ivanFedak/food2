@@ -14,7 +14,7 @@ window.onload = function(){
     modal();
 
     form();
-    slider();
+    // slider();
     slider2();
     // cardsFetch();
 };
