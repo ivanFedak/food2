@@ -299,6 +299,7 @@ a {
 }
 
 .offer__slider {
+    position: relative;
     width: 650px;
     margin-top: 50px;
     display: flex;
@@ -315,7 +316,6 @@ a {
 }
 
 .offer__slider-wrapper {
-    overflow: hidden;
     width: 100%;
     margin-top: 15px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, .25)
@@ -790,6 +790,9 @@ a {
     border-bottom: 10px solid transparent;
     opacity: .5;
     transition: opacity .6s ease;
+}
+.dot._active{
+    opacity: 1;
 }
 
 .show {
