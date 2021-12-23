@@ -12,7 +12,7 @@ import calculator from './modules/calculator';
 window.onload = function(){
     tabs();
     timer();
-    modal();
+    // modal();
     // cards();
     form();
     // cardsFetch();
