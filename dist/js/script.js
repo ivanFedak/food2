@@ -13,13 +13,11 @@ const calculator = () => {
   //для мужчин: BMR = (88.36 + (13.4 x вес, кг) + (4.8 х рост, см) – (5.7 х возраст, лет)) * активность
   //для женщин: BMR = (447.6 + (9.2 x вес, кг) + (3.1 х рост, cм) – (4.3 х возраст, лет)) * активность
   const result = document.querySelector('.calculating__result span');
-  let sex = 'female  ',
+  let sex = 'female',
       height,
       weight,
       age,
-      ration; // const height = document.querySelector('#height'),
-  //       weight = document.querySelector('#weight'),
-  //       age = document.querySelector('#age');
+      ration = 1.375;
 
   function calcTotal() {
     if (!sex || !height || !weight || !age || !ration) {
@@ -29,10 +27,10 @@ const calculator = () => {
     }
 
     if (sex == 'male') {
-      result.textContent = (88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ration;
+      result.textContent = Math.floor((88.36 + 13.4 * weight + 4.8 * height - 5.7 * age) * ration);
     } else {
       //woman
-      result.textContent = (447.6 + 9.2 * +weight + 3.1 * +height - 4.3 * +age) * ration;
+      result.textContent = Math.floor((447.6 + 9.2 * +weight + 3.1 * +height - 4.3 * +age) * ration);
     }
   }
 
@@ -54,7 +52,7 @@ const calculator = () => {
 
         e.target.classList.add(activeClass); //add Class
 
-        console.log(ration, sex);
+        calcTotal();
       }
     });
   }
@@ -62,7 +60,31 @@ const calculator = () => {
   getStaticInfo('#gender', 'calculating__choose-item_active');
   getStaticInfo('.calculating__choose_big', 'calculating__choose-item_active');
 
-  function getInputValue(input) {}
+  function getInputValue(inputSelector) {
+    const input = document.querySelector(inputSelector);
+    input.addEventListener('input', function (e) {
+      switch (input.getAttribute('id')) {
+        case 'height':
+          //#height
+          height = +input.value;
+          break;
+
+        case 'weight':
+          weight = +input.value;
+          break;
+
+        case 'age':
+          age = +input.value;
+          break;
+      }
+
+      calcTotal();
+    });
+  }
+
+  getInputValue('#height');
+  getInputValue('#weight');
+  getInputValue('#age');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (calculator);
