@@ -939,6 +939,10 @@ a {
   display: none;
 }
 
+._border {
+  border: 2px solid #ff8965;
+}
+
 .fade {
   -webkit-animation-name: fade;
           animation-name: fade;

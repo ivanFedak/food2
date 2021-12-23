@@ -822,6 +822,8 @@ a {
     display: none;
 }
 
+._border{border: 2px solid rgb(255, 137, 101)}
+
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
