@@ -1,5 +1,5 @@
-    // const project_folder = "dist";
-    const project_folder = "/Applications/MAMP/htdocs/food";
+    const project_folder = "dist";
+    // const project_folder = "/Applications/MAMP/htdocs/food";
     const source_folder = "src";
 
 
