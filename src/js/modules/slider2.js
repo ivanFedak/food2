@@ -13,6 +13,7 @@ const slider2 = ()=>{
           total = document.querySelector('#total'),
           width = window.getComputedStyle(slidesWrapper).width; // 650
 
+    console.log(width.replace(/\D/g,''));
 
     if(slides.length < 9){ //if more slides less 9
         total.textContent = `0${slides.length}`;
@@ -20,7 +21,7 @@ const slider2 = ()=>{
         total.textContent = slides.length;
     }
     //Styles
-    slideArea.style.cssText = ` width: ${parseInt(width) * slides.length}px;
+    slideArea.style.cssText = ` width: ${replaceWidth(width) * slides.length}px;
                                 display: flex;
                                 transition: all 0.3s ease; 
                               `;//2600 (4 slide by 650)
@@ -48,13 +49,16 @@ const slider2 = ()=>{
 
     sameFun();
 
+    function replaceWidth(str) {
+        return +str.replace(/\D/g,''); //650px to 650
+    }
 
     nextBtn.addEventListener('click',function(e){
         //Slider function
-        if(offset == parseInt(width) * (slides.length - 1)){ //if last slide
+        if(offset == replaceWidth(width) * (slides.length - 1)){ //if last slide
             offset = 0;
         }else{
-            offset = offset + parseInt(width); // add 650 every time
+            offset = offset + replaceWidth(width); // add 650 every time
         }
         slideArea.style.transform = `translateX(-${offset}px)`;
 
@@ -69,9 +73,9 @@ const slider2 = ()=>{
     prevBtn.addEventListener('click',function(e){
         //Slider function
         if(offset == 0){ //if first
-            offset = parseInt(width) * (slides.length - 1);
+            offset = replaceWidth(width) * (slides.length - 1);
         }else{
-            offset = offset - parseInt(width);
+            offset = offset - replaceWidth(width);
         }
         if(count < 0){ //current slide < 0 
             count = slides.length - 1; //current slide == the last slide
@@ -91,11 +95,13 @@ const slider2 = ()=>{
         dot.addEventListener('click',function(e){
             const slideTo = e.target.dataset.slideto;
             count = slideTo;
-            offset = parseInt(width) * (slideTo - 1);
+            offset = replaceWidth(width) * (slideTo - 1);
             slideArea.style.transform = `translateX(-${offset}px)`;
             sameFun();
         });
     });
+
+
 
     function sameFun() {
         if(slides.length < 9){ //if slides less 9
